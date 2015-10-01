@@ -3,6 +3,8 @@ Angular JSeed
 
 A Template for Angular Projects
 
+![Tpl Icon](http://ariatemplates.com/images/template.png)
+
 ##Contents:
 
 ###Modules
