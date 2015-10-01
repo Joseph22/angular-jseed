@@ -1,0 +1,33 @@
+{
+  "name": "jseed",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Joseph22/angular-jseed",
+  "authors": [
+    "Joseph Perez"
+  ],
+  "description": "A Template for Angular Projects",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "browserify",
+    "angularjs",
+    "seed",
+    "template"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "jquery": "~2.1.4",
+    "es5-shim": "~4.1.13"
+  }
+}
