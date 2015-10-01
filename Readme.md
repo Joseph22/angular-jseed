@@ -29,6 +29,12 @@ A Template for Angular Projects
 ###Linter
 * [eslint](https://www.npmjs.com/package/eslint)
 
+###Doc
+* [jsdoc](https://github.com/jsdoc3/jsdoc)
+
+###Css Preprocessor
+* [sass](https://github.com/sass/sass)
+
 ###Tasks / build system / plugins
 * [gulp](https://www.npmjs.com/package/gulp)
 * [del](https://www.npmjs.com/package/del)
