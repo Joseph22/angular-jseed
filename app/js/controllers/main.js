@@ -1,6 +1,6 @@
 'use strict';
 
 // @ngInject
-module.exports = function($scope) {
-   $scope.demo = 'seed controller';
+module.exports = function($scope, MainServ) {
+   $scope.demo = 'seed controller &' + MainServ.demo;
 }

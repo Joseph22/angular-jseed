@@ -2,5 +2,6 @@
 
 var serv = require('angular').module('app').service;
 
-serv('MainServ',require('./main');
+serv('MainServ',require('./main'));
+serv('AboutServ',require('./about'));
 

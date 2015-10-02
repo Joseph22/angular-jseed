@@ -4,7 +4,7 @@
   "description": "a angular project template with browserify",
   "main": "index.js",
   "scripts": {
-    "bower": "bower",
+    "task": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Joseph22/angular-jseed/issues"
+  },
+  "browser":{
+    "angular": "./app/js/vendor-module/angular-index.js",
+    "angular-route": "./vendor/angular-route/angular-route.js",
+    "jquery": "./vendor/jquery/dist/jquery.js",
+    "es5-sham": "./vendor/es5-shim/es5-sham.js",
+    "es5-shim": "./vendor/es5-shim/es5-shim.js"
   },
   "homepage": "https://github.com/Joseph22/angular-jseed#readme",
   "devDependencies": {
@@ -45,6 +52,7 @@
     "mocha": "^2.3.3",
     "protractor": "^2.3.0",
     "sinon": "^1.17.1",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
