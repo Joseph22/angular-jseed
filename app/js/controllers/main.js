@@ -2,5 +2,5 @@
 
 // @ngInject
 module.exports = function($scope, MainServ) {
-   $scope.demo = 'seed controller &' + MainServ.demo;
+   $scope.demo = 'seed controller & ' + MainServ.demo;
 }

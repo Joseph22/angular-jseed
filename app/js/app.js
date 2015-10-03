@@ -15,9 +15,13 @@ app.constant('VERSION', require('../../package.json').version);
 //my modules
 require('./services');
 require('./controllers');
+require('./directives');
+require('./filters');
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider,$locationProvider) {
 
+  //$locationProvider.html5Mode(true).hashPrefix('!');
+  
   $routeProvider.when('/about', {
     templateUrl: 'views/about.html',
     controller: 'AboutCtrl',
@@ -27,6 +31,6 @@ app.config(function($routeProvider) {
     controller: 'MainCtrl',
   })
   .otherwise({
-    redirectTo: '/main',
+    redirectTo: '/',
   });
 });
