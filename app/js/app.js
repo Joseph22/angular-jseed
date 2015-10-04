@@ -4,9 +4,10 @@ require('es5-shim');
 require('es5-sham');
 
 //vendor modules
-require('jquery');
+window.jQuery = window.$ = require('jquery');
 var angular = require('angular');
 require('angular-route');
+require('bootstrap');
 
 var app = angular.module('app', [ 'ngRoute' ]);
 

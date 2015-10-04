@@ -1,8 +1,12 @@
-<div>
-  {{ demo }}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Angular JSeed!</h1> 
+    <p>{{ demo }}</p>
+  </div>
   <div my-current-time="format"></div>
-   <input ng-model="data" type="text"><br>
-  No filter: {{data}}<br>
-  Reverse: {{data|demo}}<br>
-  Reverse + uppercase: {{data|demo:true}}<br>
+  
+  <input ng-model="data" type="text"><br>
+  <p>No filter: {{data}}</p> 
+  <p>Reverse: {{data|demo}}</p> 
+  <p>Reverse + uppercase: {{data|demo:true}}</p>
 </div>
