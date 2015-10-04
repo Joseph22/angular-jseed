@@ -1,3 +1,8 @@
 <div>
   {{ demo }}
+  <div my-current-time="format"></div>
+   <input ng-model="data" type="text"><br>
+  No filter: {{data}}<br>
+  Reverse: {{data|demo}}<br>
+  Reverse + uppercase: {{data|demo:true}}<br>
 </div>
