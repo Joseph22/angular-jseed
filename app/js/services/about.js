@@ -3,7 +3,7 @@
 // @ngInject
 module.exports = function() {
   
-  var text = 'Template App of Angularjs with browserify '+
+  var text = 'Template App of Angularjs with browserify ' +
               'and tools for development and remember ' +
               'WITHOUT WARRANTY OF ANY KIND ' +
               'by Joseph Perez & ' +
@@ -11,5 +11,5 @@ module.exports = function() {
   
   this.getText = function() {
     return text;
-  }
-}
+  };
+};

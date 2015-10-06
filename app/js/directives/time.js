@@ -1,5 +1,6 @@
 'use strict';
 
+// @ngInject
 module.exports = function($interval, $filter){
   
    //https://docs.angularjs.org/guide/directive
@@ -32,4 +33,4 @@ module.exports = function($interval, $filter){
     link: link
   };
   
-}
+};

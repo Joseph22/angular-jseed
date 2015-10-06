@@ -10,6 +10,9 @@ var browserify = require('browserify'),
     concat = require('gulp-concat'),
     file = require('gulp-file'),
     minifyCss = require('gulp-minify-css'),
+    ngAn = require('gulp-ng-annotate'),
+    eslint = require('gulp-eslint'),
+    mocha = require('gulp-mocha'),
     gulp = require('gulp');
     
 var liveReload = true,
@@ -17,7 +20,7 @@ var liveReload = true,
     cssVendor = ['./vendor/bootstrap/dist/css/bootstrap.css',
                 './vendor/bootstrap/dist/css/bootstrap-theme.css'],
 
-    cssApp = ['./app/dist-css/styles.css'],
+    cssApp = ['./app/temp/css/styles.css'],
 
     cssFiles = cssVendor.concat(cssApp),
 
@@ -27,14 +30,14 @@ var liveReload = true,
 
     delFonts = ['./app/public/dist/fonts'],
 
-    delCss = ['./app/dist-css'];
+    delCss = ['./app/temp/css'];
 
 
 function genAppCss()
 {
   var str = '';
   
-  for(var i=0;i<cssFiles.length;i++){
+  for(var i = 0; i < cssFiles.length; i++){
     str += '@import url(\'./' + path.basename(cssFiles[i]) + '\');\n';
   }
   
@@ -68,13 +71,13 @@ gulp.task('sass:debug',['clean:sass'],function(){
       .pipe(sourcemaps.init())
       .pipe(sass().on('error',sass.logError))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest('./app/dist-css'));    
+      .pipe(gulp.dest('./app/temp/css'));    
 });
 
 gulp.task('sass',['clean:sass'],function(){
   return gulp.src('./app/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error',sass.logError))
-        .pipe(gulp.dest('./app/dist-css'));  
+        .pipe(gulp.dest('./app/temp/css'));  
   
 });
 
@@ -109,6 +112,31 @@ gulp.task('styles',['sass',
         .pipe(minifyCss())
         .pipe(concat('app.css'))
         .pipe(gulp.dest('./app/public/dist/css'));
+});
+
+gulp.task('ng-an',[],function(){
+  return gulp.src([
+    'app/js/**/*.js'
+  ])
+  .pipe(ngAn())
+  .pipe(gulp.dest('./app/temp/ng-an'));
+});
+
+gulp.task('lint', function() {
+  return gulp.src([
+    'gulpfile.js',
+    'app/js/**/*.js',
+    'app/tests/**/*.js',
+  ])
+  .pipe(eslint())
+  .pipe(eslint.format());
+});
+
+gulp.task('unit',function(){
+  return gulp.src([
+    'app/tests/unit/**/*.js'
+  ])
+  .pipe(mocha({ reporter: 'dot' }));
 });
 
 gulp.task('build:debug:all',['browserify','styles:debug:all']);

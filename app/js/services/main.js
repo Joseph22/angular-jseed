@@ -3,5 +3,5 @@
 // @ngInject
 module.exports = function() {
 
-  this.demo = "Demo Service";
-}
+  this.demo = 'Demo Service';
+};

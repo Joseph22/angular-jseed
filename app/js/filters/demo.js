@@ -1,11 +1,12 @@
 'use strict';
 
+// @ngInject
 module.exports = function(){
   //https://docs.angularjs.org/guide/filter
   return function(input,uppercase){
     input = input || '';
-    var out = "";
-    for(var i=0; i < input.length; i++){
+    var out = '';
+    for(var i = 0; i < input.length; i++){
       out = input.charAt(i) + out;
     }
     
@@ -15,4 +16,4 @@ module.exports = function(){
     }
     return out;
   };
-}
+};
