@@ -1,18 +1,26 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>Angular JSeed!</h1> 
+    <h1>Angular JSeed!</h1>
     <p>{{ demo }}</p>
   </div>
   <div my-current-time="format"></div>
-  
+
   <div>
     <button type="button" class="btn btn-primary btn-lg">
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
     </button>
+    <div style='width:300px'>
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+    </div>
   </div>
-  
+
   <input ng-model="data" type="text"><br>
-  <p>No filter: {{data}}</p> 
-  <p>Reverse: {{data|demo}}</p> 
+  <p>No filter: {{data}}</p>
+  <p>Reverse: {{data|demo}}</p>
   <p>Reverse + uppercase: {{data|demo:true}}</p>
 </div>

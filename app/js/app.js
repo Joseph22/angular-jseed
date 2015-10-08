@@ -7,9 +7,9 @@ require('es5-sham');
 window.jQuery = window.$ = require('jquery');
 var angular = require('angular');
 require('angular-route');
-require('bootstrap');
+require('angular-bootstrap');
 
-var app = angular.module('app', [ 'ngRoute' ]);
+var app = angular.module('app', [ 'ngRoute', 'ui.bootstrap' ]);
 
 app.constant('VERSION', require('../../package.json').version);
 
@@ -22,7 +22,7 @@ require('./filters');
 app.config(function($routeProvider,$locationProvider) {
 
   //$locationProvider.html5Mode(true).hashPrefix('!');
-  
+
   $routeProvider.when('/about', {
     templateUrl: 'views/about.html',
     controller: 'AboutCtrl',
