@@ -15,6 +15,7 @@ var browserify = require('browserify'),
     mocha = require('gulp-mocha'),
     glob = require('glob'),
     karma = require('gulp-karma'),
+    shell = require('gulp-shell'),
     gulp = require('gulp');
 
 var liveReload = true,
@@ -165,6 +166,16 @@ gulp.task('karma', ['browserify-tests'], function() {
     throw err;
   });
 });
+
+gulp.task('docs', shell.task([
+    'node '+
+    path.normalize('./node_modules/jsdoc/jsdoc.js ')+
+    '-c '+path.normalize('./node_modules/angular-jsdoc/common/conf.json ')+   // config file
+    '-t '+path.normalize('./node_modules/angular-jsdoc/angular-template ')+   // template file
+    '-d docs '+                           // output directory
+    path.normalize('./Readme.md ') +                            // to include README.md as index contents
+    '-r ' + path.normalize('./app/js')                    // source code directory
+]));
 
 gulp.task('build:debug:all',['browserify','styles:debug:all']);
 gulp.task('build:debug',['browserify','styles:debug']);
