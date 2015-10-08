@@ -13,10 +13,12 @@ var browserify = require('browserify'),
     ngAn = require('gulp-ng-annotate'),
     eslint = require('gulp-eslint'),
     mocha = require('gulp-mocha'),
+    glob = require('glob'),
+    karma = require('gulp-karma'),
     gulp = require('gulp');
-    
+
 var liveReload = true,
-    
+
     cssVendor = ['./vendor/bootstrap/dist/css/bootstrap.css',
                 './vendor/bootstrap/dist/css/bootstrap-theme.css'],
 
@@ -36,11 +38,11 @@ var liveReload = true,
 function genAppCss()
 {
   var str = '';
-  
+
   for(var i = 0; i < cssFiles.length; i++){
     str += '@import url(\'./' + path.basename(cssFiles[i]) + '\');\n';
   }
-  
+
   return str;
 }
 
@@ -52,6 +54,18 @@ gulp.task('browserify', function() {
   .pipe(source('app.js'))
   .pipe(gulp.dest('./app/public/dist/js'))
   .pipe(connect.reload());
+});
+
+gulp.task('browserify-tests', function() {
+  var bundler = browserify();
+  glob.sync('./app/tests/unit/**/*.js')
+  .forEach(function(file) {
+    bundler.add(file, { debug: true });
+  });
+  return bundler
+  .bundle()
+  .pipe(source('browserified_tests.js'))
+  .pipe(gulp.dest('./app/temp/tests'));
 });
 
 gulp.task('clean:styles',function(){
@@ -71,14 +85,14 @@ gulp.task('sass:debug',['clean:sass'],function(){
       .pipe(sourcemaps.init())
       .pipe(sass().on('error',sass.logError))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest('./app/temp/css'));    
+      .pipe(gulp.dest('./app/temp/css'));
 });
 
 gulp.task('sass',['clean:sass'],function(){
   return gulp.src('./app/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error',sass.logError))
-        .pipe(gulp.dest('./app/temp/css'));  
-  
+        .pipe(gulp.dest('./app/temp/css'));
+
 });
 
 gulp.task('fonts',['clean:fonts'],function(){
@@ -89,15 +103,15 @@ gulp.task('fonts',['clean:fonts'],function(){
 gulp.task('styles:debug:all',['sass:debug',
                           'clean:styles',
                           'fonts'],function(){
-  
+
   return gulp.src(cssFiles)
       .pipe(file('app.css',genAppCss()))
       .pipe(gulp.dest('./app/public/dist/css'));
-  
+
 });
 
 gulp.task('styles:debug',['sass:debug'],function(){
-  
+
   return gulp.src(cssApp)
       .pipe(file('app.css',genAppCss()))
       .pipe(gulp.dest('./app/public/dist/css'))
@@ -107,7 +121,7 @@ gulp.task('styles:debug',['sass:debug'],function(){
 gulp.task('styles',['sass',
                     'clean:styles',
                     'fonts'],function(){
-  
+
   return gulp.src(cssFiles)
         .pipe(minifyCss())
         .pipe(concat('app.css'))
@@ -136,7 +150,20 @@ gulp.task('unit',function(){
   return gulp.src([
     'app/tests/unit/**/*.js'
   ])
-  .pipe(mocha({ reporter: 'dot' }));
+  .pipe(mocha({reporter: 'dot'}));
+});
+
+gulp.task('karma', ['browserify-tests'], function() {
+  return gulp
+  .src('./app/temp/tests/browserified_tests.js')
+  .pipe(karma({
+    configFile: 'karma.conf.js',
+    action: 'run'
+  }))
+  .on('error', function(err) {
+    // Make sure failed tests cause gulp to exit non-zero
+    throw err;
+  });
 });
 
 gulp.task('build:debug:all',['browserify','styles:debug:all']);
