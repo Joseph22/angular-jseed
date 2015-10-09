@@ -13,12 +13,13 @@ var browserify = require('browserify'),
     ngAn = require('gulp-ng-annotate'),
     eslint = require('gulp-eslint'),
     mocha = require('gulp-mocha'),
+    protractor = require('gulp-protractor').protractor,
     glob = require('glob'),
     karma = require('gulp-karma'),
     shell = require('gulp-shell'),
     gulp = require('gulp');
 
-var liveReload = true,
+var liveReload = false,
 
     cssVendor = ['./vendor/bootstrap/dist/css/bootstrap.css',
                 './vendor/bootstrap/dist/css/bootstrap-theme.css'],
@@ -177,6 +178,18 @@ gulp.task('docs', shell.task([
     '-r ' + path.normalize('./app/js')                    // source code directory
 ]));
 
+gulp.task('e2e', ['server'], function() {
+  return gulp.src([])
+  .pipe(protractor({
+    configFile: 'protractor.conf.js',
+    args: ['--baseUrl', 'http://127.0.0.1:8080'],
+  }))
+  .on('error', function(e) { throw e; })
+  .on('end', function() {
+    connect.serverClose();
+  });
+});
+
 gulp.task('build:debug:all',['browserify','styles:debug:all']);
 gulp.task('build:debug',['browserify','styles:debug']);
 
@@ -188,6 +201,7 @@ gulp.task('server',['build:debug:all'],function(){
 });
 
 gulp.task('watch', function() {
+  liveReload = true;
   gulp.start('server');
 
   gulp.watch([
