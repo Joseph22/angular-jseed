@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "task": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp default",
+    "server": "gulp server-min",
+    "test": "gulp unit",
+    "e2e": "gulp e2e"
   },
   "repository": {
     "type": "git",
@@ -53,7 +56,6 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^1.4.1",
     "jsdoc": "^3.3.3",
-    "jsdom": "^6.5.1",
     "karma": "^0.13.10",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.2.0",

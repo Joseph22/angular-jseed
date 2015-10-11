@@ -17,6 +17,8 @@ var browserify = require('browserify'),
     glob = require('glob'),
     karma = require('gulp-karma'),
     shell = require('gulp-shell'),
+    streamify = require('gulp-streamify'),
+    uglify = require('gulp-uglify'),
     gulp = require('gulp');
 
 var liveReload = false,
@@ -50,6 +52,12 @@ function genAppCss()
 
 //gulp Tasks
 
+gulp.task('clean:js',function(){
+  return del([
+    './app/public/dist/js'
+  ]);
+});
+
 gulp.task('browserify', function() {
   return browserify('./app/js/app.js',{ debug: true})
   .bundle()
@@ -68,6 +76,33 @@ gulp.task('browserify-tests', function() {
   .bundle()
   .pipe(source('browserified_tests.js'))
   .pipe(gulp.dest('./app/temp/tests'));
+});
+
+gulp.task('clean:an',function(){
+  return del([
+    './app/temp/controllers',
+    './app/temp/directives',
+    './app/temp/filters',
+    './app/temp/services',
+    './app/temp/vendor-module',
+    './app/temp/app.js'
+  ]);
+});
+
+gulp.task('ng-an',['clean:an'], function(){
+  return gulp.src([
+    'app/js/**/*.js'
+  ])
+  .pipe(ngAn())
+  .pipe(gulp.dest('./app/temp'));
+});
+
+gulp.task('browserify-min', ['ng-an'], function() {
+  return browserify('./app/temp/app.js')
+  .bundle()
+  .pipe(source('app.js'))
+  .pipe(streamify(uglify({ mangle: true })))
+  .pipe(gulp.dest('./app/public/dist/js'));
 });
 
 gulp.task('clean:styles',function(){
@@ -130,14 +165,6 @@ gulp.task('styles',['sass',
         .pipe(gulp.dest('./app/public/dist/css'));
 });
 
-gulp.task('ng-an',[],function(){
-  return gulp.src([
-    'app/js/**/*.js'
-  ])
-  .pipe(ngAn())
-  .pipe(gulp.dest('./app/temp/ng-an'));
-});
-
 gulp.task('lint', function() {
   return gulp.src([
     'gulpfile.js',
@@ -190,10 +217,19 @@ gulp.task('e2e', ['server'], function() {
   });
 });
 
+gulp.task('clean',['clean:js','clean:an','clean:styles','clean:sass','clean:fonts']);
 gulp.task('build:debug:all',['browserify','styles:debug:all']);
 gulp.task('build:debug',['browserify','styles:debug']);
+gulp.task('default',['browserify-min', 'styles'])
 
 gulp.task('server',['build:debug:all'],function(){
+  connect.server({
+    root: 'app/public',
+    livereload: liveReload
+  });
+});
+
+gulp.task('server-min',['default'],function(){
   connect.server({
     root: 'app/public',
     livereload: liveReload
@@ -212,8 +248,5 @@ gulp.task('watch', function() {
   gulp.watch([
     'app/sass/**/*.scss'
   ], ['styles:debug']);
-
-//  gulp.watch(['app/**/*.html',
-//           '!app/js/vendor/**/*.html'], ['reload']);
 
 });
