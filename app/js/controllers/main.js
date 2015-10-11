@@ -13,14 +13,13 @@ module.exports = function($scope, MainServ) {
    };
 
    $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+        return mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 );
   };
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];
 
-  $scope.open = function($event) {
-    console.log('click');
+  $scope.open = function() {
     $scope.status.opened = true;
   };
   $scope.dt = new Date();

@@ -19,7 +19,7 @@ require('./controllers');
 require('./directives');
 require('./filters');
 
-app.config(function($routeProvider,$locationProvider) {
+app.config(function($routeProvider) {
 
   //$locationProvider.html5Mode(true).hashPrefix('!');
 

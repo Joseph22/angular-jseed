@@ -69,8 +69,8 @@ gulp.task('browserify', function() {
 gulp.task('browserify-tests', function() {
   var bundler = browserify();
   glob.sync('./app/tests/unit/**/*.js')
-  .forEach(function(file) {
-    bundler.add(file, { debug: true });
+  .forEach(function(f) {
+    bundler.add(f, { debug: true });
   });
   return bundler
   .bundle()
@@ -196,11 +196,11 @@ gulp.task('karma', ['browserify-tests'], function() {
 });
 
 gulp.task('docs', shell.task([
-    'node '+
-    path.normalize('./node_modules/jsdoc/jsdoc.js ')+
-    '-c '+path.normalize('./node_modules/angular-jsdoc/common/conf.json ')+   // config file
-    '-t '+path.normalize('./node_modules/angular-jsdoc/angular-template ')+   // template file
-    '-d docs '+                           // output directory
+    'node ' +
+    path.normalize('./node_modules/jsdoc/jsdoc.js ') +
+    '-c ' + path.normalize('./node_modules/angular-jsdoc/common/conf.json ') +   // config file
+    '-t ' + path.normalize('./node_modules/angular-jsdoc/angular-template ') +   // template file
+    '-d docs ' +                           // output directory
     path.normalize('./Readme.md ') +                            // to include README.md as index contents
     '-r ' + path.normalize('./app/js')                    // source code directory
 ]));
@@ -220,7 +220,7 @@ gulp.task('e2e', ['server'], function() {
 gulp.task('clean',['clean:js','clean:an','clean:styles','clean:sass','clean:fonts']);
 gulp.task('build:debug:all',['browserify','styles:debug:all']);
 gulp.task('build:debug',['browserify','styles:debug']);
-gulp.task('default',['browserify-min', 'styles'])
+gulp.task('default',['browserify-min', 'styles']);
 
 gulp.task('server',['build:debug:all'],function(){
   connect.server({
