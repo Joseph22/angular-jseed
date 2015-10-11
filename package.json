@@ -6,7 +6,7 @@
   "scripts": {
     "task": "gulp",
     "build": "gulp default",
-    "server": "gulp server-min",
+    "start": "gulp server-min",
     "test": "gulp unit",
     "e2e": "gulp e2e"
   },
@@ -67,8 +67,5 @@
     "sinon": "^1.17.1",
     "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
-    "gulp-mocha": "^2.1.3"
   }
 }
