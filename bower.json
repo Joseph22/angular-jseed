@@ -30,6 +30,7 @@
     "jquery": "~2.1.4",
     "es5-shim": "~4.1.13",
     "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.13.4"
+    "angular-bootstrap": "~0.13.4",
+    "angular-mocks": "~1.4.7"
   }
 }

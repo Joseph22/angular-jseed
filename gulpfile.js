@@ -12,10 +12,9 @@ var browserify = require('browserify'),
     minifyCss = require('gulp-minify-css'),
     ngAn = require('gulp-ng-annotate'),
     eslint = require('gulp-eslint'),
-    mocha = require('gulp-mocha'),
     protractor = require('gulp-protractor').protractor,
     glob = require('glob'),
-    karma = require('gulp-karma'),
+    karma = require('karma').Server,
     shell = require('gulp-shell'),
     streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify'),
@@ -175,24 +174,21 @@ gulp.task('lint', function() {
   .pipe(eslint.format());
 });
 
-gulp.task('unit',function(){
-  return gulp.src([
-    'app/tests/unit/**/*.js'
-  ])
-  .pipe(mocha({reporter: 'dot'}));
+gulp.task('test', ['browserify-tests'], function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
-gulp.task('karma', ['browserify-tests'], function() {
-  return gulp
-  .src('./app/temp/tests/browserified_tests.js')
-  .pipe(karma({
-    configFile: 'karma.conf.js',
-    action: 'run'
-  }))
-  .on('error', function(err) {
-    // Make sure failed tests cause gulp to exit non-zero
-    throw err;
-  });
+gulp.task('tdd', ['browserify-tests'], function(done) {
+  gulp.watch([
+    'app/tests/unit/**/*.js'
+  ], ['browserify-tests']);
+
+  new karma({
+    configFile: __dirname + '/karma.conf.js'
+  }, done).start();
 });
 
 gulp.task('docs', shell.task([

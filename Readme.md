@@ -1,7 +1,7 @@
 Angular JSeed
 =============
 
-A Template for Angular Projects
+A Template for Angular Projects (without mocha / with jasmine for testing unit)
 
 ![Tpl Icon](http://ariatemplates.com/images/template.png)
 
@@ -11,19 +11,13 @@ A Template for Angular Projects
 * [Browserify](https://www.npmjs.com/package/browserify)
 
 ###Tests
-* [chai](https://www.npmjs.com/package/chai)
-* [sinon](https://www.npmjs.com/package/sinon)
-* [sinon-chai](https://www.npmjs.com/package/sinon-chai)
+* [jasmine](http://jasmine.github.io)
 
 ###Test Unit
 * [karma](https://www.npmjs.com/package/karma)
-* [karma-chai](https://www.npmjs.com/package/karma-chai)
 * [karma-chrome-launcher](karma-chrome-launcher)
 * [karma-firefox-launcher](karma-firefox-launcher)
-* [karma-mocha](https://www.npmjs.com/package/karma-mocha)
-* [karma-sinon](https://www.npmjs.com/package/karma-sinon)
-* [mocha](https://www.npmjs.com/package/mocha)
-
+* [karma-jasmine](https://github.com/karma-runner/karma-jasmine)
 
 ###Test E2E
 * [protractor](https://www.npmjs.com/package/protractor)
@@ -44,8 +38,6 @@ A Template for Angular Projects
 * [glob](https://www.npmjs.com/package/glob)
 * [gulp-connect](https://www.npmjs.com/package/gulp-connect)
 * [gulp-ng-annotate](https://www.npmjs.com/package/gulp-ng-annotate)
-* [gulp-karma](https://www.npmjs.com/package/gulp-karma)
-* [gulp-mocha](https://www.npmjs.com/package/gulp-mocha)
 * [gulp-protractor](https://www.npmjs.com/package/gulp-protractor)
 * [gulp-streamify](https://www.npmjs.com/package/gulp-streamify)
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
@@ -68,5 +60,7 @@ A Template for Angular Projects
 * [angular](https://github.com/angular/bower-angular)
 * [angular-route](https://github.com/angular/bower-angular-route)
 * [angular-bootstrap](https://angular-ui.github.io/bootstrap)
+* [angular-mocks](https://docs.angularjs.org/api/ngMock)
 * [jquery](https://github.com/jquery/jquery)
 * [es5-shim](https://github.com/es-shims/es5-shim)
+* [bootstrap](http://getbootstrap.com)
